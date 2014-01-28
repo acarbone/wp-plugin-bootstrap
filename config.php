@@ -8,6 +8,15 @@ Version: 0.1
 Author URI: http://www.artera.it
 */
 
+//Autoloader
+function WBAutoloader( $classname ) {
+	$filename = str_replace("\\", "/", __DIR__ . "/lib/$classname.php");
+
+	if ( file_exists( $filename ) )
+		include_once $filename;
+}
+spl_autoload_register('WBAutoloader');
+
 require 'admin/install.php';
 
 function wpBoostrapInit() {
@@ -20,5 +29,6 @@ if ( is_admin() ) {
 	} else {
 		add_action( 'plugins_loaded', 'wpBoostrapInit', 0 );
 	}
-
 }
+
+require_once "WBInit.php";
